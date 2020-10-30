@@ -5,10 +5,13 @@
 Post your Work on Git Hub
 
 ### Description
-Describe what your project is about and what it does
+My project is setting up a repository,improving documentation, refactoring code and merging branches
 
-### Files used
-Include the files used
+### Files used		
+(Since these files were too large to be uploaded to github, I used .gitignore for these)
+washington.csv
+new_york_city.csv
+chicago.csv
 
 ### Credits
-It's important to give proper credit. Add links to any repo that inspired you or blogposts you consulted.
+Just focused on the Udacity content
