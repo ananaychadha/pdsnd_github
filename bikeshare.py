@@ -1,4 +1,4 @@
-mport time
+import time
 import pandas as pd
 import numpy as np
 
@@ -14,7 +14,7 @@ def valid_input(input_string, input_selection):
                 break
             elif input_r in ['January', 'February', 'March', 'April', 'May', 'June', 'All'] and input_selection == 2:
                 break
-            elif input_r in ['Monday', 'Tuesday', 'Wednesday', 'Thurday', 'Friday', 'Saturday', 'Sunday', 'All'] and                        input_selection == 3:
+            elif input_r in ['Monday', 'Tuesday', 'Wednesday', 'Thurday', 'Friday', 'Saturday', 'Sunday', 'All'] and input_selection == 3:
                 break
             else:
                 if input_selection ==  1:
@@ -23,12 +23,12 @@ def valid_input(input_string, input_selection):
                     print('Wrong Month')
                 if input_selection == 3:
                       print("Wrong Day")
-                        
+
         except ValueError:
-            print('Wrong Input') 
-    
+            print('Wrong Input')
+
     return input_r
-   
+
 
 def get_filters():
     """
@@ -44,38 +44,38 @@ def get_filters():
     city =  valid_input('chicago, washington or new york city = ',1)
     month = valid_input('Which Month? = ',2)
     day =   valid_input('Which Day? = ',3)
-   
+
     print('-'*40)
     return city, month, day
 
 
 def load_data(city, month, day):
-    
-     #load data file into a dataframe    
+
+     #load data file into a dataframe
     df = pd.read_csv(CITY_DATA[city])
-        
+
      # convert the Start Time column to datetime
     df['Start Time'] = pd.to_datetime(df['Start Time'])
-    
+
      #extract month and day of week from Start Time to create new columns
     df['month'] = df['Start Time'].dt.month
     df['day_of_week'] = df['Start Time'].dt.weekday_name
-    
-    
+
+
     # filter by month if applicable
     if month != 'All':
         # use the index of the months list to get the corresponding int
         months = ['January', 'February', 'March', 'April', 'May', 'June','All']
         month = months.index(month) + 1
-    
+
         # filter by month to create the new dataframe
         df = df[df['month'] == month]
-        
+
         # filter by day of week if applicable
     if day != 'All':
         # filter by day of week to create the new dataframe
         df = df[df['day_of_week']== day.title()]
-    
+
     return df
 
 
@@ -87,12 +87,12 @@ def time_stats(df):
 
     # TO DO: display the most common month
     print(df['month'].mode()[0])
-    
-    # TO DO: display the most common day of week 
+
+    # TO DO: display the most common day of week
     print(df['day_of_week'].mode()[0])
-    
+
     # TO DO: display the most common start hour
-    print(df['hour'].mode()[0]) 
+    print(df['hour'].mode()[0])
 
 
     print("\nThis took %s seconds." % (time.time() - start_time))
@@ -107,10 +107,10 @@ def station_stats(df):
 
     # TO DO: display most commonly used start station
     print(df['Start Station'].mode()[0])
-    
+
     # TO DO: display most commonly used end station
     print(df['End Station'].mode()[0])
-       
+
     # TO DO: display most frequent combination of start station and end station trip
     start_end_group = df.groupby(['Start Station', 'End Station'])
 
@@ -126,7 +126,7 @@ def trip_duration_stats(df):
 
     # TO DO: display total travel time
     print(df['Trip Duration'].sum())
-   
+
     # TO DO: display mean travel time
     print(df['Trip Duratiom'].mean())
 
@@ -142,11 +142,11 @@ def user_stats(df):
 
     # TO DO: Display counts of user types
     print(df['User Type'].value_counts())
-          
+
     # TO DO: Display counts of gender
     if city != 'Washington':
           print(df['Gender'].value_counts())
-     
+
     # TO DO: Display earliest, most recent, and most common year of birth
           print(df['Birth Year'].mode()[0])
           print(df['Birth Year'].max())
@@ -155,7 +155,7 @@ def user_stats(df):
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-          
+
 def raw_data(df):
     """Displays 5 lines from row data"""
     start=0
@@ -164,7 +164,7 @@ def raw_data(df):
     while True:
         print("Do you want to see more raw data? Enter yes or no")
         response = input()
-        if response.lower()=="yes":            
+        if response.lower()=="yes":
             start+=5
             end=end+5
             print(df.iloc[start:end,0:])
@@ -189,4 +189,3 @@ def main():
 
 if __name__ == "__main__":
 	main()
-
